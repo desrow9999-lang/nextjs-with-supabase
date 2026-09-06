@@ -1,156 +1,65 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabaseClient';
-
-interface HealthLog {
-  id: string;
-  condition_score: number;
-  memo: string;
-  created_at: string;
-}
+import { useState } from "react";
 
 export default function Home() {
-  const [score, setScore] = useState<number>(3);
-  const [memo, setMemo] = useState<string>('');
-  const [logs, setLogs] = useState<HealthLog[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [summary, setSummary] = useState<string>('');
-  const [summarizing, setSummarizing] = useState<boolean>(false);
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const fetchLogs = async () => {
-    const { data, error } = await supabase
-      .from('health_logs')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(10);
-
-    if (error) {
-      console.error('取得エラー:', error.message);
-    } else if (data) {
-      setLogs(data);
-    }
-  };
-
-  useEffect(() => {
-    fetchLogs();
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleGenerate = async () => {
+    if (!input.trim()) return;
     setLoading(true);
-
-    const { error } = await supabase.from('health_logs').insert([
-      { condition_score: score, memo },
-    ]);
-
-    setLoading(false);
-
-    if (error) {
-      alert('保存に失敗しました: ' + error.message);
-    } else {
-      setMemo('');
-      fetchLogs();
-    }
-  };
-
-  const handleSummarize = async () => {
-    if (logs.length === 0) {
-      alert('分析する記録がありません。');
-      return;
-    }
-    setSummarizing(true);
-    try {
-      const res = await fetch('/api/summarize', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ logs }),
-      });
-      const data = await res.json();
-      setSummary(data.summary || data.error);
-    } catch (e) {
-      setSummary('要約中にエラーが発生しました。');
-    }
-    setSummarizing(false);
+    // TODO: ここにGemini APIやSupabaseとの連携処理を接続
+    setTimeout(() => {
+      setResult(`「${input}」に関する生成結果がここに表示されます。`);
+      setLoading(false);
+    }, 1000);
   };
 
   return (
-    <main className="min-h-screen p-4 max-w-md mx-auto space-y-6">
-      <h1 className="text-xl font-bold text-center">体調管理 (PWA + AI)</h1>
+    <main className="min-h-screen bg-slate-50 text-slate-800 p-4 md:p-8">
+      <div className="max-w-2xl mx-auto space-y-6">
+        
+        {/* ヘッダー */}
+        <header className="text-center space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+            AI Assistant App
+          </h1>
+          <p className="text-sm text-slate-500">
+            AIを活用してあなたの作業を効率化します
+          </p>
+        </header>
 
-      {/* 入力フォーム */}
-      <form onSubmit={handleSubmit} className="space-y-4 bg-gray-50 p-4 rounded-xl border">
-        <div>
-          <label className="block text-sm font-medium mb-1">今の気分/体調 (1-5)</label>
-          <div className="flex justify-between">
-            {[1, 2, 3, 4, 5].map((num) => (
-              <button
-                key={num}
-                type="button"
-                onClick={() => setScore(num)}
-                className={`w-10 h-10 rounded-full text-sm font-bold ${
-                  score === num ? 'bg-blue-600 text-white' : 'bg-gray-200'
-                }`}
-              >
-                {num}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1">メモ・症状</label>
+        {/* 入力エリア */}
+        <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+          <label className="block text-sm font-medium text-slate-700">
+            プロンプト / 質問を入力
+          </label>
           <textarea
-            value={memo}
-            onChange={(e) => setMemo(e.target.value)}
-            className="w-full p-2 border rounded-lg text-sm text-black"
-            rows={3}
-            placeholder="例: 少し頭痛がする、睡眠不足かも"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="例: ブログの目次を作成して、プログラミング学習のアドバイスを教えて..."
+            rows={4}
+            className="w-full p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           />
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full py-2 bg-blue-600 text-white font-bold rounded-lg disabled:opacity-50"
-        >
-          {loading ? '保存中...' : '記録を保存'}
-        </button>
-      </form>
-
-      {/* AI要約エリア */}
-      <div className="bg-purple-50 p-4 rounded-xl border border-purple-200 space-y-3">
-        <div className="flex justify-between items-center">
-          <h2 className="text-sm font-bold text-purple-900">✨ AI体調アドバイス</h2>
           <button
-            onClick={handleSummarize}
-            disabled={summarizing}
-            className="px-3 py-1 bg-purple-600 text-white text-xs font-bold rounded-lg disabled:opacity-50"
+            onClick={handleGenerate}
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-xl transition disabled:opacity-50"
           >
-            {summarizing ? '分析中...' : 'AIで分析'}
+            {loading ? "生成中..." : "AIで生成する"}
           </button>
-        </div>
-        {summary && <p className="text-sm text-purple-950 whitespace-pre-wrap">{summary}</p>}
-      </div>
+        </section>
 
-      {/* 履歴表示 */}
-      <div className="space-y-2">
-        <h2 className="text-md font-bold">最近の記録</h2>
-        <div className="space-y-2">
-          {logs.length === 0 ? (
-            <p className="text-sm text-gray-500">まだ記録はありません。</p>
-          ) : (
-            logs.map((log) => (
-              <div key={log.id} className="p-3 bg-white border rounded-lg text-sm space-y-1">
-                <div className="flex justify-between text-xs text-gray-500">
-                  <span>スコア: {log.condition_score} / 5</span>
-                  <span>{new Date(log.created_at).toLocaleString('ja-JP')}</span>
-                </div>
-                {log.memo && <p className="text-gray-800">{log.memo}</p>}
-              </div>
-            ))
-          )}
-        </div>
+        {/* 結果表示エリア */}
+        {result && (
+          <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-2">
+            <h2 className="text-sm font-semibold text-slate-500">生成結果</h2>
+            <div className="p-4 bg-slate-50 rounded-xl text-sm leading-relaxed whitespace-pre-wrap">
+              {result}
+            </div>
+          </section>
+        )}
+
       </div>
     </main>
   );
