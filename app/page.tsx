@@ -17,7 +17,6 @@ export default function Home() {
   const handleSave = () => {
     if (mood === null) return;
     setSaved(true);
-    // TODO: Supabaseへ記録データを保存する処理を接続
     setTimeout(() => setSaved(false), 3000);
   };
 
@@ -94,7 +93,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* ひと言メモ（任意） */}
+          {/* ひ言メモ（任意） */}
           <div>
             <label className="block text-xs font-bold text-slate-600 mb-1">4. 先生に伝えたいこと（任意）</label>
             <input
