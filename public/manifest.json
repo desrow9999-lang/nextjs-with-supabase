@@ -1,0 +1,17 @@
+{
+  "name": "タスカル - ワンタップ体調記録",
+  "short_name": "タスカル",
+  "description": "ワンタップで簡単に日々の体調を記録できるアプリ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
