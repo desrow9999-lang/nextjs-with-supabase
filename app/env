@@ -1,0 +1,14 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+      title: 'タスカル',
+        description: 'タスカルアプリ',
+          icons: {
+                icon: '/icon.png',
+                    shortcut: '/icon.png',
+                        apple: '/icon.png', // スマホのホーム画面用
+          },
+}
+
+          }
+}
