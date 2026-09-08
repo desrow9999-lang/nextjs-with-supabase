@@ -1,34 +1,16 @@
 from datetime import datetime
-import os
+import subprocess
 from google import genai
 
-client = genai.Client()
-today_str = datetime.now().strftime("%Y-%m-%d")
+API_KEY = "AQ.Ab8RN6KNeGPvEP7-3QHaRDX8hA8qKW5v3gboFW-46nURrfrZvg"
 
-threads_prompt = """
-あなたはうつ病当事者やそのご家族にそっと寄り添い、孤立を防ぐためのサポートボットです。
-Threads向けに、今日を少しだけ楽に過ごすための温かい共感メッセージや簡単なコーピング（心の対処法）を、
-140文字程度で短く優しく1つだけ生成してください。
-"""
-
-note_prompt = """
-あなたはうつ病当事者やそのご家族にそっと寄り添い、孤立を防ぐためのサポートボットです。
-note向けに、心の重荷を少し軽くするための少し丁寧なエッセイ記事を、
-「タイトル：」から始めて本文まで含めて生成してください。
-"""
-
-res_threads = client.models.generate_content(model='gemini-3.6-flash', contents=threads_prompt)
-threads_filename = f"threads_{today_str}.txt"
-with open(threads_filename, "w", encoding="utf-8") as f:
-    f.write(res_threads.text)
-
-res_note = client.models.generate_content(model='gemini-3.6-flash', contents=note_prompt)
-note_filename = f"note_{today_str}.txt"
-with open(note_filename, "w", encoding="utf-8") as f:
-    f.write(res_note.text)
-
-print("================ 【Threads用】 ================")
-print(res_threads.text)
-print("\n================== 【note用】 ==================")
-print(res_note.text)
-print(f"\n[完了] 保存ファイル: {threads_filename}, {note_filename}")
+client = genai.Client(api_key=API_KEY)
+t = datetime.now().strftime("%Y-%m-%d")
+th = client.models.generate_content(model='gemini-3.6-flash', contents='うつ病当事者に寄り添うThreads用の温かい共感メッセージを140文字程度で1つ生成してください。').text.strip()
+no = client.models.generate_content(model='gemini-3.6-flash', contents='うつ病当事者に寄り添うnote用の丁寧なエッセイ記事を「タイトル：」から作成してください。').text.strip()
+with open("README.md", "w", encoding="utf-8") as f:
+    f.write(f"# 🌿 メンタルサポート ({t})\n\n## 📱 Threads\n```text\n{th}\n```\n\n## 📝 note\n```text\n{no}\n```\n")
+subprocess.run(["git", "add", "README.md"])
+subprocess.run(["git", "commit", "-m", "update"])
+subprocess.run(["git", "push"])
+print("✨ 完了しました！")

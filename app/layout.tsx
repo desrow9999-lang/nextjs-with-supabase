@@ -1,24 +1,8 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import './globals.css';
 
-export const metadata: Metadata = {
-  title: "通院時とっても『タスカル』",
-  description: "ワンタップで簡単に日々の体調を記録できるアプリ",
-  manifest: "/manifest.json",
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
-    ],
-    apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: "通院時とっても『タスカル』",
-  },
+export const metadata = {
+  title: 'タスカル',
+  description: 'メンタルサポート＆タスク管理アプリ',
 };
 
 export default function RootLayout({
