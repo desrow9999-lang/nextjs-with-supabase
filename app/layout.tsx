@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "タスカル - ワンタップ体調記録",
+  title: "通院時とっても『タスカル』",
   description: "ワンタップで簡単に日々の体調を記録できるアプリ",
   manifest: "/manifest.json",
   icons: {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "タスカル",
+    title: "通院時とっても『タスカル』",
   },
 };
 
