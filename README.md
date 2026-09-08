@@ -1,109 +1,73 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# 🌿 メンタルサポート (2026-09-08)
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+## 📱 Threads
+```text
+今日も一日、本当にお疲れ様でした。何もできなかったと自分を責めないでね。今はこの世界で生きているだけで、100点満点です。心と体が求めるままに、今日はただゆっくり休みましょう。あなたのペースで大丈夫。今夜が少しでも、温かく穏やかな時間になりますように。（129文字）
+```
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## 📝 note
+```text
+タイトル：心が動かない日は、無理に立ち上がらなくていい。ただ「今」を生きているあなたへ
 
-## Features
+こんにちは。
+この文章を開いてくださり、ありがとうございます。
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Proxy
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+いま、どんな場所で、どんな体勢でこの言葉を眺めていますか。
+布団の中で小さくなっているのかもしれないし、暗い部屋のすみで、スマートフォンの光だけを見つめているのかもしれません。
 
-## Demo
+何もする気が起きない。
+胸の奥が重たくて、理由もなく涙が出てくる。
+昨日までできていたことが、今日は何もできない。
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+そんな自分に対して、「どうしてこんなに駄目なんだろう」「みんなは頑張っているのに」と、責める声が頭の中でリフレインしていませんか。
 
-## Deploy to Vercel
+まず、一番にお伝えしたいことがあります。
 
-Vercel deployment will guide you through creating a Supabase account and project.
+**あなたが今日、息をして、ただそこに存在している。それだけで、もう100点満点なんです。**
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+＊
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+うつ病の苦しさは、「休んでいる間も、心が休まらないこと」にあるのかもしれません。
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+体が動かないのに、頭の中だけはグルグルと回り続け、「申し訳なさ」や「焦り」が攻撃してくる。これでは、まるで走っている時と同じくらい、心が疲弊してしまいますよね。
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+でも、どうか知ってください。
+今のあなたは「怠けている」のではなく、**「心がこれ以上のダメージを受けないように、緊急ブレーキをかけて自分を守っている」**のです。
 
-## Clone and run locally
+スマートフォンのバッテリーがゼロになったとき、どれだけ画面をタップしても動きませんよね。無理に動かそうとすれば、壊れてしまいます。
+今のあなたの心と体も、まさに充電がすっかり切れてしまった状態なのです。
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+充電がないときにできる唯一の正しい対処法は、**「ただ、電源コードをつないで放置すること」**。
 
-2. Create a Next.js app using the Supabase Starter template npx command
+ですから、今のあなたに必要なのは、復職の計画でも、前向きな思考でもありません。
+ただ横になり、毛布の温もりを感じ、時間をやり過ごすこと。それだけです。
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+「今日は顔を洗えなかった」
+「一日中、ベッドから出られなかった」
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+それでいいんです。それが、いまのあなたの心が一番必要としている「治療」なのだから。
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+＊
 
-3. Use `cd` to change into the app's directory
+社会はいつも「変化すること」や「生産的であること」を求めてきます。
+でも、自然界には「冬」という季節があります。
 
-   ```bash
-   cd with-supabase-app
-   ```
+木々は葉を落とし、動物たちは洞窟でじっと息を潜めます。
+外から見れば止まっているように見えますが、土の下では、次の季節を迎えるための静かな準備が、ただ淡々と行われているのです。
 
-4. Rename `.env.example` to `.env.local` and update the following:
+いまのあなたは、人生の「冬」の中にいます。
+無理に花を咲かせようとしなくて大丈夫です。
+春は、あなたが焦らなくても、時間が経てば必ず向こうからやってきます。
 
-  ```env
-  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
-  ```
-  > [!NOTE]
-  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
-  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
-  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
+今日はただ、温かいお茶やスープを一口飲むことができたら、自分をたくさん褒めてあげてください。
+もしそれすらできなくても、「今日も一日、生き抜いた自分」の肩を、心の中で優しく叩いてあげてください。
 
-  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+＊
 
-5. You can now run the Next.js local development server:
+この文章を読み終わったら、ゆっくりと画面を閉じて、目を閉じてみてください。
 
-   ```bash
-   npm run dev
-   ```
+あなたがこれ以上、自分を責めずに済みますように。
+今夜が、少しでも穏やかで、温かい時間となりますように。
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
-
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
-
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
-
-## Feedback and issues
-
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
-
-## More Supabase examples
-
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+あなたは、あなたのままで、ここにいていいんですよ。
+```
