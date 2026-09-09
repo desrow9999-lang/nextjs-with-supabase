@@ -1,7 +1,8 @@
 import streamlit as st
+st.set_page_config(page_title="副業note自動生成プロ", page_icon="✍️")
+import streamlit as st
 import os
 
-st.set_page_config(page_title="note & スレッズ自動生成", page_icon="✨", layout="centered")
 
 st.title("✨ 記事自動生成ツール")
 st.write("ボタンをタップするだけで、スレッズとnote用の記事を自動生成します。")
