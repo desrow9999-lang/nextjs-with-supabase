@@ -7,7 +7,7 @@ async function runWithRetry(retries = 3, delay = 2000) {
     try {
       console.log(`生成を試行中... (${i + 1}回目)`);
       const response = await ai.models.generateContent({
-        model: 'gemini-3.6-flash',
+        model: 'gemini-3.5-flash-lite',
         contents: 'あなたは優しいメンタルヘルス・心理カウンセラーです。現代人が日常で抱えがちな心の疲れ、焦り、不安をやさしく包み込み、心がふっと軽くなるようなメッセージを作成してください。Threads用テキストとnote用エッセイの2つを出力してください。',
       });
       console.log("\n=== 生成結果 ===");

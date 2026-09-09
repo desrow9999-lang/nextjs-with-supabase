@@ -1,93 +1,55 @@
+import os
 import streamlit as st
+import streamlit.components.v1 as components
 from google import genai
+from dotenv import load_dotenv
 
-# ページ設定（ホーム画面追加時のアイコンやアプリ名を最適化）
-st.set_page_config(
-    page_title="副業note自動生成プロ",
-    page_icon="✍️",
-    layout="centered",
-    initial_sidebar_state="expanded"
-)
+load_dotenv()
 
-# タイトル
-st.title("✍️ 副業note有料記事 自動生成ツール")
-st.markdown("ワンタップで読者の心に刺さり、購入へと繋がる副業ノウハウ・マインド系の有料記事を自動生成します。")
+st.set_page_config(page_title="副業note有料記事自動生成ツール", page_icon="✍️")
 
-# サイドバー設定（お客様ご自身のAPIキーを入力してもらう仕様）
-with st.sidebar:
-    st.header("⚙️ ご利用設定")
-    st.markdown("ご利用にはご自身の **Gemini APIキー** が必要です。")
-    api_key = st.text_input("Gemini API Key", type="password")
+components.html("""
+<script>
+    document.documentElement.lang = 'ja';
+    document.documentElement.classList.add('notranslate');
+</script>
+""", height=0)
+
+st.title("✍️ 副業note有料記事自動生成ツール")
+st.write("ワンタップで読者の心に刺さり、購入まで繋がる副業ノウハウ・マインド系の有料記事を自動生成します。")
+
+theme = st.text_input("作成したい副業のテーマやジャンルを入力してください", placeholder="例：スキマ時間で月5万円稼ぐスマホライティング術")
+
+if "generated_article" not in st.session_state:
+    st.session_state.generated_article = ""
+
+if st.button("🚀 ワンタップで記事を自動生成する"):
+    if not theme:
+        theme = "スキマ時間で月5万円稼ぐスマホライティング術"
     
+    with st.spinner("AIが記事を生成中..."):
+        try:
+            client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+            prompt = f"副業テーマ「{theme}」に関する有料note記事を作成してください。構成は【タイトル】【はじめに】【本文】【まとめ】としてください。"
+            response = client.models.generate_content(
+                model="gemini-3.5-flash-lite",
+                contents=prompt
+            )
+            st.session_state.generated_article = response.text
+            st.success("✨ 記事の生成が完了しました！")
+        except Exception as e:
+            st.error(f"エラーが発生しました: {e}")
+
+if st.session_state.generated_article:
+    st.subheader("📄 生成された記事")
+    st.text_area("内容の確認・編集", value=st.session_state.generated_article, height=250)
+
     st.markdown("---")
-    st.markdown("### 💡 記事の仕様")
-    st.markdown("- **ターゲット**: 副業を始めたい初心者")
-    st.markdown("- **読了時間**: 3〜5分程度")
-    st.markdown("- **構成**: 共感 ➔ 解決策 ➔ ステップ ➔ 有料誘導")
+    st.subheader("📝 noteへ投稿・保存する")
+    
+    st.write("1. 以下の枠内右上の**コピーボタン**をタップして全文をコピーします。")
+    st.code(st.session_state.generated_article, language="markdown")
+    
+    st.write("2. 以下のボタンからnoteの新規投稿画面を開き、貼り付けて保存してください。")
+    st.link_button("🚀 note投稿画面を開く", "https://note.com/notes/new", type="primary")
 
-# メイン入力エリア
-theme_input = st.text_input(
-    "作成したい副業のテーマやジャンルを入力してください",
-    placeholder="例：スキマ時間で月5万円稼ぐスマホライティング術"
-)
-
-# 生成ボタン
-if st.button("🚀 ワンタップで記事を自動生成する", type="primary"):
-    if not api_key:
-        st.error("左側のサイドバーに Gemini API Key を入力してください。")
-    elif not theme_input:
-        st.warning("副業のテーマを入力してください。")
-    else:
-        with st.spinner("プロのWebライターが記事を執筆中..."):
-            try:
-                # Geminiクライアント初期化
-                client = genai.Client(api_key=api_key)
-                
-                # プロンプトの構築
-                prompt = """
-あなたはnoteで累計数千部を売り上げるプロのWebライター兼マーケターです。読者の行動を促し、「有料部分を読んでみたい」と思わせる魅力的な副業ノウハウ・解説記事を作成してください。
-
-以下のテーマに沿って、noteの有料記事の骨子・本体を生成してください。
-
-- テーマ: {theme}（会社員・初心者向けに、再現性が高く実践しやすい内容）
-- ターゲット: 現状の収入に不安があり、何から始めればいいか悩んでいる人
-- 読了時間: 3〜5分程度でサクッと読めるボリューム
-- 構成: 
-  1. 共感と問題提起（読者の現在の悩みや痛みに寄り添う）
-  2. 解決策の提示（具体的な副業の手段やアプローチ）
-  3. 実践のためのファーストステップ（今日からできる具体的な行動）
-  4. 有料部分への魅力的な誘導（さらに深い裏技や効率化のコツがあることを匂わせる）
-
-以下の出力フォーマットを厳守してください。
-
-【タイトル】
-（※クリック率が高く、思わず読みたくなる魅力的なタイトルを1つ）
-
-【導入】
-（※読者の悩みに共感し、この記事で得られるメリットを提示する文章）
-
-【本文】
-（※具体的な副業のノウハウやコツを分かりやすく箇条書きや段落で解説）
-
-【まとめ・有料部分への案内】
-（※ここから先でしか読めない具体的な裏技やテンプレートがあることを伝え、購入を促すメッセージ）
-""".format(theme=theme_input)
-
-                response = client.models.generate_content(
-                    model='gemini-3.6-flash',
-                    contents=prompt,
-                )
-                
-                article_output = response.text
-                
-                st.success("✨ 記事の生成が完了しました！")
-                
-                # 出力結果の表示
-                st.markdown("### 📄 生成された記事")
-                st.text_area("以下の枠内をコピーしてnoteに貼り付けてください", article_output, height=400)
-                
-                # コピー用コードブロック
-                st.code(article_output, language="markdown")
-                
-            except Exception as e:
-                st.error(f"エラーが発生しました: {e}")
