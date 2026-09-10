@@ -4,7 +4,7 @@ import streamlit as st
 import os
 
 
-st.title("✨ 記事自動生成ツール")
+st.title("✨ 副業note自動生成プロ")
 st.write("ボタンをタップするだけで、スレッズとnote用の記事を自動生成します。")
 
 # APIキーの取得（環境変数または入力）
