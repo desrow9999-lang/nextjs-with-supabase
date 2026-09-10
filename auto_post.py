@@ -6,20 +6,27 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# ブラウザのタブ名・タイトル・アイコンを確実に設定するためのJavaScriptとHTML注入
 components.html("""
 <script>
     document.documentElement.lang = 'ja';
     document.documentElement.classList.add('notranslate');
+    document.title = "副業note有料記事自動生成プロ";
 </script>
 """, height=0)
 
-st.set_page_config(page_title="副業note有料記事自動生成ツール", page_icon="✍️", layout="centered")
+st.set_page_config(
+    page_title="副業note有料記事自動生成プロ", 
+    page_icon="✍️", 
+    layout="centered",
+    initial_sidebar_state="expanded"
+)
 
-# サイドバーにAPIキー入力欄を設置（各自のキーで利用できるようにする）
+# サイドバーにAPIキー入力欄を設置
 st.sidebar.header("⚙️ 設定・APIキー")
 user_api_key = st.sidebar.text_input("Gemini APIキーを入力", type="password", value="", help="ご自身のGoogle AI Studioで取得したAPIキーを入力してください。未入力の場合は環境変数が使用されます。")
 
-st.title("✍️ 副業note有料記事自動生成ツール")
+st.title("✍️ 副業note有料記事自動生成プロ")
 st.write("ワンタップで読者の心に刺さり、購入まで繋がる副業ノウハウ・マインド系の有料記事を自動生成します。")
 
 theme = st.text_input("作成したい副業のテーマやジャンルを入力してください", placeholder="例：スキマ時間で月5万円稼ぐスマホライティング術")
