@@ -4,7 +4,7 @@ import streamlit as st
 import os
 
 
-st.title("✨ 副業note自動生成プロ")
+st.title("✨ 記事自動生成ツール")
 st.write("ボタンをタップするだけで、スレッズとnote用の記事を自動生成します。")
 
 # APIキーの取得（環境変数または入力）
@@ -23,4 +23,3 @@ if st.button("🚀 ワンタップで記事を生成する", type="primary", use
 
     st.markdown("### 📝 メモ (note用)")
     st.text_area("本文コピーエリア", memo_text, height=300)
-
