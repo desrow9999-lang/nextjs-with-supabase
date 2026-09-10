@@ -15,7 +15,7 @@ th = client.models.generate_content(model='gemini-3.5-flash-lite', contents='う
 no = client.models.generate_content(model='gemini-3.5-flash-lite', contents='うつ病当事者に寄り添うnote用の丁寧なエッセイ記事を「タイトル：」から作成してください。').text.strip()
 with open("README.md", "w", encoding="utf-8") as f:
     f.write(f"# 🌿 メンタルサポート ({t})\n\n## 📱 Threads\n```text\n{th}\n```\n\n## 📝 note\n```text\n{no}\n```\n")
-subprocess.run(["git", "add", "README.md"])
-subprocess.run(["git", "commit", "-m", "update"])
-subprocess.run(["git", "push"])
+#subprocess.run(["git", "add", "README.md"])
+#subprocess.run(["git", "commit", "-m", "update"])
+#subprocess.run(["git", "push"])
 print("✨ 完了しました！")
