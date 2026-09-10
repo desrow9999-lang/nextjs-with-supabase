@@ -1,25 +1,55 @@
-import streamlit as st
-st.set_page_config(page_title="副業note自動生成プロ", page_icon="✍️")
-import streamlit as st
 import os
+import streamlit as st
+import streamlit.components.v1 as components
+from google import genai
+from dotenv import load_dotenv
 
+load_dotenv()
 
-st.title("✨ 記事自動生成ツール")
-st.write("ボタンをタップするだけで、スレッズとnote用の記事を自動生成します。")
+st.set_page_config(page_title="副業note有料記事自動生成ツール", page_icon="✍️")
 
-# APIキーの取得（環境変数または入力）
-api_key = os.environ.get("OPENAI_API_KEY", "")
+components.html("""
+<script>
+    document.documentElement.lang = 'ja';
+    document.documentElement.classList.add('notranslate');
+</script>
+""", height=0)
 
-if st.button("🚀 ワンタップで記事を生成する", type="primary", use_container_width=True):
-    with st.spinner("記事を生成中です...少々お待ちください"):
-        # --- 昨日の生成ロジック ---
-        thread_text = "今日も一日、お疲れ様でした。何気ない日常の中で、ふと立ち止まる瞬間はありませんか？"
-        memo_text = "タイトル：心が動かない日は、無理に立たなくていい\n\nこんにちは。\nこの文章を開いてくださり、ありがとうございます。\n\nいま、どんな場所で、どんな体勢でこの言葉を読んでいますか？\n布団の中で小さくなっているかもしれません。\n\n何もする気が起きない。\n胸の奥が重たくなって、理由もなく涙が出てくる。\n昨日までできていたことが、今日は何もできない。\n\nそんな自分に対して、「どうしてこんなにダメなんだろう」と責めてしまうことはありませんか？\n\nまず、一番にお伝えしたいことがあります。\n\n**あなたが今日、息をして、ただそこにいるだけで、もう十分です。**"
+st.title("✍️ 副業note有料記事自動生成ツール")
+st.write("ワンタップで読者の心に刺さり、購入まで繋がる副業ノウハウ・マインド系の有料記事を自動生成します。")
 
-    st.success("✨ 記事の生成が完了しました！")
+theme = st.text_input("作成したい副業のテーマやジャンルを入力してください", placeholder="例：スキマ時間で月5万円稼ぐスマホライティング術")
 
-    st.markdown("### 📱 スレッド用")
-    st.code(thread_text, language="markdown")
+if "generated_article" not in st.session_state:
+    st.session_state.generated_article = ""
 
-    st.markdown("### 📝 メモ (note用)")
-    st.text_area("本文コピーエリア", memo_text, height=300)
+if st.button("🚀 ワンタップで記事を自動生成する"):
+    if not theme:
+        theme = "スキマ時間で月5万円稼ぐスマホライティング術"
+    
+    with st.spinner("AIが記事を生成中..."):
+        try:
+            client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+            prompt = f"副業テーマ「{theme}」に関する有料note記事を作成してください。構成は【タイトル】【はじめに】【本文】【まとめ】としてください。"
+            response = client.models.generate_content(
+                model="gemini-3.5-flash-lite",
+                contents=prompt
+            )
+            st.session_state.generated_article = response.text
+            st.success("✨ 記事の生成が完了しました！")
+        except Exception as e:
+            st.error(f"エラーが発生しました: {e}")
+
+if st.session_state.generated_article:
+    st.subheader("📄 生成された記事")
+    st.text_area("内容の確認・編集", value=st.session_state.generated_article, height=250)
+
+    st.markdown("---")
+    st.subheader("📝 noteへ投稿・保存する")
+    
+    st.write("1. 以下の枠内右上の**コピーボタン**をタップして全文をコピーします。")
+    st.code(st.session_state.generated_article, language="markdown")
+    
+    st.write("2. 以下のボタンからnoteの新規投稿画面を開き、貼り付けて保存してください。")
+    st.link_button("🚀 note投稿画面を開く", "https://note.com/notes/new", type="primary")
+
