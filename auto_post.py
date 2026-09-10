@@ -1,25 +1,31 @@
 import streamlit as st
-st.set_page_config(page_title="副業note自動生成プロ", page_icon="✍️")
-import streamlit as st
 import os
+from google import genai
 
+st.set_page_config(page_title="副業note有料記事自動生成ツール", page_icon="✍️", layout="centered")
 
-st.title("✨ 記事自動生成ツール")
-st.write("ボタンをタップするだけで、スレッズとnote用の記事を自動生成します。")
+st.title("✍️ 副業note有料記事自動生成ツール")
+st.write("ワンタップで読者の心に刺さり、購入まで繋がる副業ノウハウ・マインド系の有料記事を自動生成します。")
 
-# APIキーの取得（環境変数または入力）
-api_key = os.environ.get("OPENAI_API_KEY", "")
+theme = st.text_input("作成したい副業のテーマやジャンルを入力してください", "例：スキマ時間で月5万円稼ぐスマホライティング術")
 
-if st.button("🚀 ワンタップで記事を生成する", type="primary", use_container_width=True):
-    with st.spinner("記事を生成中です...少々お待ちください"):
-        # --- 昨日の生成ロジック ---
-        thread_text = "今日も一日、お疲れ様でした。何気ない日常の中で、ふと立ち止まる瞬間はありませんか？"
-        memo_text = "タイトル：心が動かない日は、無理に立たなくていい\n\nこんにちは。\nこの文章を開いてくださり、ありがとうございます。\n\nいま、どんな場所で、どんな体勢でこの言葉を読んでいますか？\n布団の中で小さくなっているかもしれません。\n\n何もする気が起きない。\n胸の奥が重たくなって、理由もなく涙が出てくる。\n昨日までできていたことが、今日は何もできない。\n\nそんな自分に対して、「どうしてこんなにダメなんだろう」と責めてしまうことはありませんか？\n\nまず、一番にお伝えしたいことがあります。\n\n**あなたが今日、息をして、ただそこにいるだけで、もう十分です。**"
+api_key = os.getenv("GEMINI_API_KEY")
 
-    st.success("✨ 記事の生成が完了しました！")
-
-    st.markdown("### 📱 スレッド用")
-    st.code(thread_text, language="markdown")
-
-    st.markdown("### 📝 メモ (note用)")
-    st.text_area("本文コピーエリア", memo_text, height=300)
+if st.button("🚀 ワンタップで記事を生成する", type="primary"):
+    if not api_key:
+        st.error("GEMINI_API_KEYが設定されていません。環境変数を確認してください。")
+    elif not theme:
+        st.warning("テーマやジャンルを入力してください。")
+    else:
+        with st.spinner("記事を自動生成中..."):
+            try:
+                client = genai.Client(api_key=api_key)
+                prompt = f"以下のテーマに基づき、読者の心に刺さり、購入まで繋がる副業noteの有料記事（構成案・本文含む）をマークダウン形式で作成してください。\n\nテーマ: {theme}"
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=prompt,
+                )
+                st.success("記事の生成が完了しました！")
+                st.markdown(response.text)
+            except Exception as e:
+                st.error(f"エラーが発生しました: {e}")
