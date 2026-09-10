@@ -22,7 +22,7 @@ if st.button("🚀 ワンタップで記事を生成する", type="primary"):
                 client = genai.Client(api_key=api_key)
                 prompt = f"以下のテーマに基づき、読者の心に刺さり、購入まで繋がる副業noteの有料記事（構成案・本文含む）をマークダウン形式で作成してください。\n\nテーマ: {theme}"
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.6-flash",
                     contents=prompt,
                 )
                 st.success("記事の生成が完了しました！")
